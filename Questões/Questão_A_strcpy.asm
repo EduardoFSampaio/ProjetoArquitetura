@@ -1,5 +1,5 @@
 .data
-    string: .asciiz "Cadeira" 	# String que vai passar pela funcao para teste.
+    string: .asciiz "Jogador" 	# String que vai passar pela funcao para teste.
     source: .space 20 		# Espaco para armazenar uma string de até 20 bytes
     
 .text
