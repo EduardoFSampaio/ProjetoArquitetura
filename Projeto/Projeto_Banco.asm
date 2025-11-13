@@ -1,4 +1,5 @@
-# Integrantes: Eduardo Furtado Sampaio
+# Nome do projeto: Sampaio-Banco
+# Integrante: Eduardo Furtado Sampaio
 # Projeto 1 VA Assembly | Arquitetura e Organizacao de Computadores | Semestre: 2025.2
 
 .data
@@ -1286,9 +1287,11 @@
 		formatarConta:
 			la $t0, extratos0 # Carrega o endereço base do bloco de extratos
 			mul $a0, $t6, 1900 # Multiplica o contador por 1900 pra achar o bloco de extratos correspondente ao cliente
-			li $t2, 1900 # Numero total de bytes de um extrato de um cliente
+			add $a0, $t0, $t1   # SOMA: $a0 = Endereço Base + Deslocamento
+            li $t2, 1900 # Numero total de bytes de um extrato de um cliente
 			li $t3, 0 # Contador pros bytes
-			
+			li $t5, 0  # O valor 0 (nulo)
+
 			# loop pra zerar string
 			loop_zerar:
         			beq $t3, $t2, fimFuncao # Verifica se chegou ao final do extrato, se sim termina a execucao
@@ -1308,8 +1311,10 @@
 		buscar_contaCliente(contaComDigito, contaAtual, procuraRegistroD)
 		
 		procuraRegistroD: 
-		mul $t5, $t6, 1900 # Multiplica o contador por 1900 pra achar o bloco de extratos correspondente ao cliente
-		# move $t5, $t4 # Move o endereco base do bloco pra $t5
+		la $t9, extratos0  # Carrega o ENDEREÇO BASE dos extratos
+        mul $t5, $t6, 1900 # Multiplica o contador por 1900 pra achar o bloco de extratos correspondente ao cliente
+		add $t5, $t9, $t5  #SOMA: $t5 = Endereço Real (Base + Offset)
+        # move $t5, $t4 # Move o endereco base do bloco pra $t5
 			loop_debitoExtrato:
 				beq $t8, $t7, fimFuncao # Se o contador chegar a 50 a funcao encerra
 				# Pra comparar o caractere tipoTransferencia de cada registro do extrato
